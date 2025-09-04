@@ -4,3 +4,339 @@
 *:after {
   box-sizing: border-box;
 }
+
+/******* Background***************/
+body {
+  background: url('/images/site/small_check.jpg') repeat;
+}
+
+#wrapper {
+  background: #fff;
+  border: 3px solid #00a6d6;
+  border-radius: 18px;
+  max-width: 750px;
+  margin: 2rem auto;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  padding: 1.5rem 2rem;
+}
+
+
+/******* Header Style ***************/
+#top-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem 2rem 0.5rem 2rem;
+  background: #fff;
+  border-radius: 12px 12px 0 0;
+}
+
+.siteName a {
+  font-size: 2rem;
+  font-family: 'Arial', sans-serif;
+  font-weight: 500;
+  color: #232333;
+  text-decoration: none;
+}
+
+#tools a {
+  font-size: 1rem;
+  color: #444;
+  text-decoration: none;
+  font-family: 'Arial', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+/******* Nav ***************/
+.main-nav ul {
+  display: flex;
+  justify-content: space-between;
+  background: #232333;
+  padding: 0.5rem 0;
+  border-radius: 4px;
+  list-style: none;
+  margin: 0;
+}
+
+.main-nav li {
+  flex: 1;
+  text-align: center;
+}
+
+.main-nav a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-family: 'Arial', sans-serif;
+  font-weight: 500;
+  display: block;
+  padding: 0.5rem 0;
+  transition: background 0.2s;
+}
+
+.main-nav a:hover {
+  background: #00a6d6;
+}
+
+/******* Body ***************/
+/******* Hero ***************/
+.delorean-hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  width: 100%;
+}
+
+
+.delorean-img img {
+  width: 100%;
+  height: auto;
+  display: block;
+  max-width: none;
+}
+
+
+.delorean-info {
+  position: absolute;
+  left: 80px;
+  top: 30px;
+  background: rgba(255, 255, 255, 0.85);
+  padding: 1.2rem 1.5rem;
+  border-radius: 8px;
+  z-index: 2;
+  max-width: 240px;
+  text-align: left;
+}
+
+.delorean-info h2 {
+  color: #00a6d6;
+  margin-bottom: 0.5rem;
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.delorean-info ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem 0;
+  color: #00a6d6;
+  font-size: 1.1rem;
+}
+
+.own-today-btn {
+  display: inline-block;
+  background: #00a6d6;
+  color: #fff;
+  padding: 0.6em 1.6em;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-top: 0.5em;
+  border: none;
+  cursor: pointer;
+}
+
+/******* Upgrades + Reviews Section ***************/
+.upgrade-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem 2rem;
+}
+
+.upgrade-list div {
+  background: #00a6d6;
+  border-radius: 2px;
+  padding: 0.7rem 0.2rem 0.5rem 0.2rem;
+  text-align: center;
+  min-width: 120px;
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.upgrade-list img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  margin-bottom: 0.3rem;
+  background: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.upgrade-list a {
+  color: #3a00d6;
+  text-decoration: underline;
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 0.3rem;
+  margin-bottom: 0;
+  display: block;
+}
+
+.upgrades h2,
+.reviews h2 {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.delorean-details {
+  display: flex;
+  gap: 2rem;
+  margin-top: 2rem;
+  justify-content: center;
+  align-items: flex-start;
+  margin-bottom: 4.5rem;
+}
+
+.reviews ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 220px;
+  list-style: disc inside;
+  padding-left: 0;
+  margin: 0;
+}
+
+.reviews li {
+  margin-bottom: 0;
+  font-size: 1rem;
+}
+
+
+/******* Mobile Screen Media query ***************/
+@media (max-width: 600px) {
+  #wrapper {
+    max-width: 98vw;
+    padding: 1rem 0.5rem;
+    border-radius: 12px;
+    margin: 1rem auto;
+  }
+
+  #top-header {
+    flex-direction: row;
+    align-items: center;
+    padding: 1rem 0.5rem 0.5rem 0.5rem;
+  }
+
+  .main-nav ul {
+    flex-direction: row;
+    justify-content: space-between;
+    border-radius: 4px;
+    padding: 0.5rem 0;
+  }
+
+  .main-nav li {
+    text-align: center;
+    border-bottom: none;
+  }
+
+  .delorean-hero {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    min-height: 180px;
+    margin-bottom: 1rem;
+  }
+
+
+  .delorean-info {
+    position: absolute;
+    left: 0.5rem;
+    top: -1.5rem;
+    background: rgba(255, 255, 255, 0.45);
+    padding: 0.7rem 1rem;
+    border-radius: 8px;
+    z-index: 2;
+    max-width: 150px;
+    text-align: left;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .delorean-info h2,
+  .delorean-info ul {
+    color: #0077b6;
+    font-weight: bold;
+    text-shadow: 0 1px 4px rgba(255, 255, 255, 0.18);
+    margin-bottom: 0.5rem;
+
+  }
+
+  .delorean-info ul {
+    font-size: 1rem;
+    margin-bottom: 0.7rem;
+    padding-left: 0;
+    list-style: none;
+    color: #00a6d6;
+  }
+
+  .own-today-btn {
+    background: #00a6d6;
+    color: #fff;
+    font-weight: bold;
+    font-size: 1rem;
+    border-radius: 4px;
+    padding: 0.4em 1em;
+    margin-top: 0.3em;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.10);
+    white-space: nowrap;
+  }
+
+  .delorean-img img {
+    max-width: 220px;
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+    display: block;
+  }
+
+  .delorean-details {
+    flex-direction: column;
+    gap: 1.2rem;
+    margin-top: 1.2rem;
+    margin-bottom: 2rem;
+    align-items: stretch;
+  }
+
+  .reviews {
+    order: 1;
+  }
+
+  .upgrades {
+    order: 2;
+  }
+
+  .upgrade-list {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.7rem;
+  }
+
+  .upgrade-list div {
+    min-width: 0;
+    min-height: 80px;
+    padding: 0.5rem 0.1rem;
+  }
+
+  .reviews ul {
+    height: auto;
+    gap: 0.5rem;
+  }
+}
