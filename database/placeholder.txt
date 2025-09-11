@@ -1,1 +1,44 @@
-This is only meant to preserved the folder it resides in. It can be deleted when actual files are created and stored.
+Steps
+--------------------------------------------
+Create service:
+
+add a new Name in the dashboard = cse340 Database2
+
+database name = cse340jm2
+
+user = cse340jm2
+
+region = frankfurt
+
+instance type = free
+---------------------------------
+
+Set up connections:
+
+go into the service and go to connections
+
+open pgADmin4
+
+right click servers and register
+
+name = Render.com
+
+TURN OFF CONNECT NOW
+
+copy external url from Render - then chop on until the @ and then then until the / at the end
+
+paste Database name and Username into Maintenance Database and Username =
+
+Go to Parameter and change ssl mode to require, hit SAVE
+
+--------------------------------------------------------
+
+login with the password from Render
+
+right click on Database name and select query tool
+
+Before Running the script change Owner to current Databse name
+
+Run Database rebuild
+
+push the latest commit to web service
