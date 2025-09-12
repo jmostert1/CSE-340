@@ -2,11 +2,11 @@ Steps
 --------------------------------------------
 Create service:
 
-add a new Name in the dashboard = cse340 Database2
+add a new Name in the dashboard = cse340 Database3
 
-database name = cse340jm2
+database name = cse340jm3
 
-user = cse340jm2
+user = cse340jm3
 
 region = frankfurt
 
