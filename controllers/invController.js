@@ -19,5 +19,33 @@ invCont.buildByClassificationId = async function (req, res, next) {
   })
 }
 
+/* Build vehicle detail view */
+async function buildDetailView(req, res, next) {
+  const inv_id = req.params.inv_id
+  const nav = await utilities.getNav()
+  const vehicle = await invModel.getVehicleById(inv_id)
+  if (!vehicle) {
+    return next({ status: 404, message: "Vehicle not found." })
+  }
+  const vehicleHtml = utilities.buildVehicleDetail(vehicle)
+  res.render("inventory/detail", {
+    title: `${vehicle.inv_make} ${vehicle.inv_model}`,
+    nav,
+    vehicleHtml
+  })
+}
 
-  module.exports = invCont
+/* Intentional error generator */
+function causeError(req, res, next) {
+  // This will trigger the error middleware
+  throw new Error("Intentional server error for testing purposes.")
+}
+
+
+ module.exports = {
+  ...invCont,
+  buildDetailView,
+  causeError
+}
+
+  

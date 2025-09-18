@@ -35,6 +35,18 @@ app.use(async (req, res, next) => {
   next({status: 404, message: 'Sorry, we appear to have lost that page.'})
 })
 
+// Error-handling middleware (500 errors)
+app.use(async (err, req, res, next) => {
+  console.error(err.stack)
+  let nav = await utilities.getNav()
+  res.status(500).render("errors/error", {
+    title: "Server Error",
+    nav,
+    message: "Sorry, something went wrong on our end.",
+    error: err.message
+  })
+})
+
 /* ***********************
 * Express Error Handler
 * Place after all other middleware
