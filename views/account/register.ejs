@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>
+    <%= title %>
+  </title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+  <main class="register-container">
+    <h1>
+      <%= title %>
+    </h1>
+    <% if (messages && messages.error) { %>
+      <div class="flash-message error">
+        <%= messages.error %>
+      </div>
+      <% } %>
+        <% if (messages && messages.success) { %>
+          <div class="flash-message success">
+            <%= messages.success %>
+          </div>
+          <% } %>
+            <form class="register-form" action="/account/register" method="post">
+              <label for="account_firstname">First name</label>
+              <input type="text" id="account_firstname" name="account_firstname" required>
+
+              <label for="account_lastname">Last name</label>
+              <input type="text" id="account_lastname" name="account_lastname" required>
+
+              <label for="account_email">Email address</label>
+              <input type="email" id="account_email" name="account_email" required>
+
+              <label for="account_password">Password</label>
+              <input type="password" id="account_password" name="account_password" required minlength="12">
+              <button type="button" class="toggle-password" onclick="togglePassword()">Show</button>
+              <div class="password-note">
+                Password must be at least 12 characters, contain 1 capital letter, 1 number, and 1 special character.
+              </div>
+              <button type="submit">Register</button>
+            </form>
+  </main>
+  <script>
+  function togglePassword() {
+    const pwd = document.getElementById('account_password'); 
+    const btn = document.querySelector('.toggle-password');
+    if (pwd.type === "password") {
+      pwd.type = "text";
+      btn.textContent = "Hide";
+    } else {
+      pwd.type = "password";
+      btn.textContent = "Show";
+    }
+  }
+</script>
+</body>
+
+</html>
