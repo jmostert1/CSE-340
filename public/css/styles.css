@@ -6,6 +6,7 @@
   color: #00704a;
   text-align: center;
 }
+
 .vehicle-card__price {
   font-size: 1.1rem;
   color: #00704a;
@@ -13,15 +14,18 @@
   margin-bottom: 0.5rem;
   text-align: center;
 }
+
 .vehicle-card__details {
   font-size: 1rem;
   color: #232333;
   margin-top: 0.5rem;
   text-align: left;
 }
+
 .vehicle-card__details div {
   margin-bottom: 0.3rem;
 }
+
 /******* Change Box Model ***************/
 *,
 *:before,
@@ -152,7 +156,7 @@ body {
 
 .own-today-btn {
   background: #0077b6;
-  color: #fff;        
+  color: #fff;
   font-weight: bold;
   border-radius: 4px;
   padding: 0.6em 1.6em;
@@ -161,7 +165,7 @@ body {
   margin-top: 0.5em;
   border: none;
   cursor: pointer;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.10);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.10);
 }
 
 /******* Upgrades + Reviews Section ***************/
@@ -195,7 +199,7 @@ body {
 }
 
 .upgrade-list a {
-  color: #fff;       
+  color: #fff;
   text-decoration: underline;
   font-size: 1rem;
   font-weight: bold;
@@ -375,18 +379,21 @@ body {
   margin: 2rem 0;
   background: #fff;
   border-radius: 12px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
   padding: 2rem;
 }
+
 .vehicle-detail__left {
   flex: 1 1 350px;
   max-width: 480px;
 }
+
 .vehicle-detail__main-img img {
   width: 100%;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
+
 .vehicle-detail__right {
   flex: 2 1 350px;
   min-width: 250px;
@@ -394,6 +401,7 @@ body {
   flex-direction: column;
   gap: 1.2rem;
 }
+
 .vehicle-detail__price-box {
   background: #f7f7f7;
   border-radius: 8px;
@@ -403,41 +411,49 @@ body {
   flex-direction: column;
   align-items: flex-start;
 }
+
 .vehicle-detail__mileage-label {
   font-size: 0.9rem;
   color: #888;
   margin-bottom: 0.2rem;
 }
+
 .vehicle-detail__mileage {
   font-size: 1.3rem;
   font-weight: bold;
   margin-bottom: 0.5rem;
 }
+
 .vehicle-detail__price-label {
   font-size: 1rem;
   color: #00704a;
   margin-bottom: 0.2rem;
 }
+
 .vehicle-detail__price {
   font-size: 2rem;
   color: #00704a;
   font-weight: bold;
 }
+
 .vehicle-detail__info-list {
   list-style: none;
   padding: 0;
   margin: 0 0 1rem 0;
   font-size: 1.05rem;
 }
+
 .vehicle-detail__info-list li {
   margin-bottom: 0.3rem;
 }
+
 .vehicle-detail__actions {
   display: flex;
   flex-wrap: wrap;
   gap: 0.7rem;
   margin-bottom: 1rem;
 }
+
 .btn {
   background: #e0e0e0;
   color: #232333;
@@ -449,29 +465,36 @@ body {
   cursor: pointer;
   transition: background 0.2s;
 }
+
 .btn-green {
   background: #00704a;
   color: #fff;
 }
+
 .btn:hover {
   background: #00a6d6;
   color: #fff;
 }
+
 .vehicle-detail__contact {
   margin-top: 1rem;
   font-size: 1.1rem;
 }
+
 .vehicle-detail__contact a {
   color: #00704a;
   font-weight: bold;
   text-decoration: none;
 }
+
 @media (max-width: 900px) {
   .vehicle-detail {
     flex-direction: column;
     padding: 1rem;
   }
-  .vehicle-detail__left, .vehicle-detail__right {
+
+  .vehicle-detail__left,
+  .vehicle-detail__right {
     max-width: 100%;
     min-width: 0;
   }
@@ -488,7 +511,7 @@ body {
 .vehicle-card {
   background: #fff;
   border-radius: 10px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -497,7 +520,7 @@ body {
 }
 
 .vehicle-card:hover {
-  box-shadow: 0 4px 24px rgba(0,166,214,0.18);
+  box-shadow: 0 4px 24px rgba(0, 166, 214, 0.18);
 }
 
 .vehicle-card__img {
@@ -547,14 +570,16 @@ body {
   padding: 2em;
   background: #fff;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
+
 .login-form label {
   display: block;
   margin-top: 1em;
   margin-bottom: 0.5em;
   font-weight: bold;
 }
+
 .login-form input {
   width: 100%;
   padding: 0.5em;
@@ -562,6 +587,7 @@ body {
   border: 1px solid #ccc;
   border-radius: 4px;
 }
+
 .login-form button {
   width: 100%;
   padding: 0.75em;
@@ -573,31 +599,38 @@ body {
   font-weight: bold;
   cursor: pointer;
 }
+
 .login-form button:hover {
   background: #0056b3;
 }
+
 .flash-message {
   padding: 0.75em;
   margin-bottom: 1em;
   border-radius: 4px;
   font-size: 0.95em;
 }
+
 .flash-message.error {
   background: #f8d7da;
   color: #721c24;
 }
+
 .flash-message.success {
   background: #d4edda;
   color: #155724;
 }
+
 .register-link {
   margin-top: 1.5em;
   text-align: center;
 }
+
 .register-link a {
   color: #007bff;
   text-decoration: none;
 }
+
 .register-link a:hover {
   text-decoration: underline;
 }
@@ -610,15 +643,17 @@ body {
   padding: 2em 2em 1.5em 2em;
   background: #fff;
   border-radius: 10px;
-  box-shadow: 2px 2px 8px rgba(0,0,0,0.15);
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.15);
   border: 2px solid #222;
 }
+
 .register-form label {
   display: block;
   margin-bottom: 0.5em;
   font-weight: bold;
   font-size: 1.1em;
 }
+
 .register-form input {
   width: 100%;
   padding: 0.7em;
@@ -627,6 +662,7 @@ body {
   border-radius: 6px;
   font-size: 1em;
 }
+
 .register-form button[type="submit"] {
   display: block;
   margin: 0.5em 0 0 0;
@@ -640,9 +676,11 @@ body {
   cursor: pointer;
   transition: background 0.2s;
 }
+
 .register-form button[type="submit"]:hover {
   background: #125ea2;
 }
+
 .flash-message {
   background: #e74c3c;
   color: #fff;
@@ -651,11 +689,13 @@ body {
   margin-bottom: 1em;
   text-align: center;
 }
+
 .password-note {
   font-size: 0.95em;
   color: #333;
   margin-bottom: 1em;
 }
+
 .toggle-password {
   background: none;
   border: none;
@@ -664,4 +704,16 @@ body {
   font-size: 0.95em;
   margin-left: 0.5em;
   padding: 0;
+}
+
+/* styles for password requirements box */
+.password-requirements {
+  display: block;
+  background: #f0f4fa;
+  color: #333;
+  padding: 0.75em;
+  margin-bottom: 0.5em;
+  border-radius: 6px;
+  font-size: 0.97em;
+  border: 1px solid #b3c6d1;
 }

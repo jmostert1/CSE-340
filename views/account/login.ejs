@@ -19,7 +19,11 @@
       <input type="email" id="email" name="email" required>
 
       <label for="password">Password</label>
-      <input type="password" id="password" name="password" required>
+      <input type="password" id="password" name="password" required
+        pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
+      <div class="password-note">
+        Password must be at least 12 characters, contain 1 capital letter, 1 number, and 1 special character.
+      </div>
 
       <button type="submit">Login</button>
     </form>
