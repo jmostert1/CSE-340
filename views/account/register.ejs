@@ -25,13 +25,13 @@
     <% } %>
     <form class="register-form" action="/account/register" method="post">
       <label for="account_firstname">First name</label>
-      <input type="text" id="account_firstname" name="account_firstname" required>
+      <input type="text" name="account_firstname" id="accountFirstname" required value="<%= locals.account_firstname %>">
 
       <label for="account_lastname">Last name</label>
-      <input type="text" id="account_lastname" name="account_lastname" required>
+      <input type="text" name="account_lastname" id="accountLastname" required value="<%= locals.account_lastname %>">
 
       <label for="account_email">Email address</label>
-      <input type="email" id="account_email" name="account_email" required>
+      <input type="email" name="account_email" id="accountEmail" required value="<%= locals.account_email %>">
 
       <label for="account_password">Password</label>
       <div class="password-requirements">
