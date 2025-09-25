@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Inventory Management</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <main class="management-container">
+    <h1>Inventory Management</h1>
+
+    <% if (messages && messages.notice) { %>
+      <div class="flash-message success"><%= messages.notice %></div>
+    <% } %>
+    <% if (messages && messages.error) { %>
+      <div class="flash-message error"><%= messages.error %></div>
+    <% } %>
+
+    <nav class="management-nav">
+      <ul>
+        <li>
+          <a href="/inv/add-classification">Add New Classification</a>
+        </li>
+        <li>
+          <a href="/inv/add-inventory">Add New Inventory</a>
+        </li>
+      </ul>
+    </nav>
+  </main>
+
+
+</body>
+</html>

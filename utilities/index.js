@@ -1,3 +1,31 @@
+// Server-side validation for classification name
+const { body, validationResult } = require("express-validator")
+
+function classificationRules() {
+  return [
+    body("classification_name")
+      .trim()
+      .isLength({ min: 1 })
+      .withMessage("Classification name is required.")
+      .matches(/^[A-Za-z0-9]+$/)
+      .withMessage("No spaces or special characters allowed.")
+  ]
+}
+
+async function checkClassificationData(req, res, next) {
+  const errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    let nav = await getNav()
+    return res.render("inventory/add-classification", {
+      title: "Add Classification",
+      nav,
+      errors,
+      classification_name: req.body.classification_name,
+      messages: req.flash()
+    })
+  }
+  next()
+}
 const invModel = require("../models/inventory-model")
 
 /* ************************
@@ -123,9 +151,67 @@ function buildVehicleDetail(vehicle) {
   `
 }
 
+async function buildClassificationList(classification_id = null) {
+  let data = await invModel.getClassifications()
+  let classificationList =
+    '<select name="classification_id" id="classificationList" required>'
+  classificationList += "<option value=''>Choose a Classification</option>"
+  data.rows.forEach((row) => {
+    classificationList += '<option value="' + row.classification_id + '"'
+    if (
+      classification_id != null &&
+      row.classification_id == classification_id
+    ) {
+      classificationList += " selected "
+    }
+    classificationList += ">" + row.classification_name + "</option>"
+  })
+  classificationList += "</select>"
+  return classificationList
+}
+
+function inventoryRules() {
+  return [
+    body("classification_id").notEmpty().withMessage("Classification is required."),
+    body("inv_make").trim().notEmpty().withMessage("Make is required."),
+    body("inv_model").trim().notEmpty().withMessage("Model is required."),
+    body("inv_year").isInt({ min: 1900, max: 2099 }).withMessage("Year must be a 4-digit number."),
+    body("inv_description").trim().notEmpty().withMessage("Description is required."),
+    body("inv_image").trim().notEmpty().withMessage("Image path is required."),
+    body("inv_thumbnail").trim().notEmpty().withMessage("Thumbnail path is required."),
+    body("inv_price").isFloat({ min: 0 }).withMessage("Price must be a positive number."),
+    body("inv_miles").isInt({ min: 0 }).withMessage("Miles must be a positive number."),
+    body("inv_color").trim().notEmpty().withMessage("Color is required.")
+  ]
+}
+
+async function checkInventoryData(req, res, next) {
+  const errors = validationResult(req)
+  let nav = await getNav()
+  let classificationList = await buildClassificationList(req.body.classification_id)
+  if (!errors.isEmpty()) {
+    return res.render("inventory/add-inventory", {
+      title: "Add Inventory",
+      nav,
+      classificationList,
+      errors,
+      messages: req.flash(),
+      ...req.body
+    })
+  }
+  next()
+}
+
+
+
 module.exports = {
   getNav,
   handleErrors,
   buildClassificationGrid,
-  buildVehicleDetail
+  buildVehicleDetail,
+  buildClassificationList,
+  classificationRules,
+  checkClassificationData,
+  inventoryRules,
+  checkInventoryData
 }

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Classification</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <script>
+   
+    function validateClassificationForm(event) {
+      const input = document.getElementById('classification_name').value;
+      const regex = /^[A-Za-z0-9]+$/;
+      const errorDiv = document.getElementById('client-error');
+      if (!regex.test(input)) {
+        event.preventDefault();
+        errorDiv.textContent = "Classification name must not contain spaces or special characters.";
+        errorDiv.style.display = "block";
+      } else {
+        errorDiv.textContent = "";
+        errorDiv.style.display = "none";
+      }
+    }
+    window.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('addClassificationForm').addEventListener('submit', validateClassificationForm);
+    });
+  </script>
+</head>
+<body>
+
+
+  <main class="add-classification-container">
+    <h1>Add New Classification</h1>
+
+    <% if (messages && messages.notice) { %>
+      <div class="flash-message success"><%= messages.notice %></div>
+    <% } %>
+    <% if (messages && messages.error) { %>
+      <div class="flash-message error"><%= messages.error %></div>
+    <% } %>
+    <% if (typeof errors !== 'undefined' && errors.errors && errors.errors.length > 0) { %>
+      <div class="flash-message error">
+        <ul>
+          <% errors.errors.forEach(function(error) { %>
+            <li><%= error.msg %></li>
+          <% }) %>
+        </ul>
+      </div>
+    <% } %>
+    <div id="client-error" class="flash-message error" style="display:none;"></div>
+
+    
+    <form id="addClassificationForm" action="/inv/add-classification" method="post" novalidate>
+      <label for="classification_name">Classification Name</label>
+      <input 
+        type="text" 
+        id="classification_name" 
+        name="classification_name" 
+        required 
+        pattern="^[A-Za-z0-9]+$"
+        title="No spaces or special characters allowed. Only letters and numbers."
+        maxlength="30"
+        value="<%= typeof classification_name !== 'undefined' ? classification_name : '' %>"
+      >
+      <div class="form-note">
+        Classification name must not contain spaces or special characters. Only letters and numbers are allowed.
+      </div>
+      <button type="submit">Add Classification</button>
+    </form>
+  </main>
+
+</body>
+</html>
