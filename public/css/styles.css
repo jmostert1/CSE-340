@@ -939,3 +939,30 @@ ul.flash-message.error {
   margin-top: 0;
   margin-bottom: 1rem;
 }
+
+/* Inventory Table Styles */
+#inventoryDisplay {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1em;
+  background-color: #fff;
+}
+
+#inventoryDisplay th, #inventoryDisplay td {
+  border: 1px solid #ccc;
+  padding: 8px 12px;
+  text-align: left;
+}
+
+#inventoryDisplay th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+#inventoryDisplay tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+#inventoryDisplay tr:hover {
+  background-color: #e6f7ff;
+}

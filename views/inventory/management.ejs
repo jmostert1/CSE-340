@@ -1,33 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Inventory Management</title>
-  <link rel="stylesheet" href="/css/styles.css">
-</head>
-<body>
-  <main class="management-container">
-    <h1>Inventory Management</h1>
+<main class="management-container">
+  <h1>Inventory Management</h1>
 
-    <% if (messages && messages.notice) { %>
-      <div class="flash-message success"><%= messages.notice %></div>
-    <% } %>
-    <% if (messages && messages.error) { %>
-      <div class="flash-message error"><%= messages.error %></div>
-    <% } %>
+  <% if (messages && messages.notice) { %>
+    <div class="flash-message success">
+      <%= messages.notice %>
+    </div>
+  <% } %>
+  <% if (messages && messages.error) { %>
+    <div class="flash-message error">
+      <%= messages.error %>
+    </div>
+  <% } %>
 
-    <nav class="management-nav">
-      <ul>
-        <li>
-          <a href="/inv/add-classification">Add New Classification</a>
-        </li>
-        <li>
-          <a href="/inv/add-inventory">Add New Inventory</a>
-        </li>
-      </ul>
-    </nav>
-  </main>
+  <nav class="management-nav">
+    <ul>
+      <li>
+        <a href="/inv/add-classification">Add New Classification</a>
+      </li>
+      <li>
+        <a href="/inv/add-inventory">Add New Inventory</a>
+      </li>
+    </ul>
+  </nav>
 
+  <h2>Manage Inventory</h2>
+  <p>Select a classification from the list to see the items belonging to the classification.</p>
 
-</body>
-</html>
+  <!-- Display the classification select list -->
+  <%- classificationList %>
+
+  <!-- Empty table for inventory items -->
+  <table id="inventoryDisplay"></table>
+
+  <noscript>JavaScript must be enabled to use this page.</noscript>
+</main>
+
+<script src="/js/inventory.js"></script>

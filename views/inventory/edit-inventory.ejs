@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <script>
+    // Client-side validation for all fields
+    function validateInventoryForm(event) {
+      let errors = [];
+      const make = document.getElementById('inv_make').value.trim();
+      const model = document.getElementById('inv_model').value.trim();
+      const year = document.getElementById('inv_year').value.trim();
+      const description = document.getElementById('inv_description').value.trim();
+      const image = document.getElementById('inv_image').value.trim();
+      const thumbnail = document.getElementById('inv_thumbnail').value.trim();
+      const price = document.getElementById('inv_price').value.trim();
+      const miles = document.getElementById('inv_miles').value.trim();
+      const color = document.getElementById('inv_color').value.trim();
+      const classification = document.getElementById('classificationList').value;
+
+      if (!classification) errors.push("Classification is required.");
+      if (!make) errors.push("Make is required.");
+      if (!model) errors.push("Model is required.");
+      if (!year || !/^\d{4}$/.test(year)) errors.push("Year must be a 4-digit number.");
+      if (!description) errors.push("Description is required.");
+      if (!image) errors.push("Image path is required.");
+      if (!thumbnail) errors.push("Thumbnail path is required.");
+      if (!price || isNaN(price) || Number(price) < 0) errors.push("Price must be a positive number.");
+      if (!miles || isNaN(miles) || Number(miles) < 0) errors.push("Miles must be a positive number.");
+      if (!color) errors.push("Color is required.");
+
+      const errorDiv = document.getElementById('client-error');
+      if (errors.length > 0) {
+        event.preventDefault();
+        errorDiv.innerHTML = errors.map(e => `<li>${e}</li>`).join('');
+        errorDiv.style.display = "block";
+      } else {
+        errorDiv.innerHTML = "";
+        errorDiv.style.display = "none";
+      }
+    }
+    window.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('editInventoryForm').addEventListener('submit', validateInventoryForm);
+    });
+  </script>
+</head>
+<body>
+
+  <main class="edit-inventory-container">
+    <h1><%= title %></h1>
+
+    <% if (messages && messages.notice) { %>
+      <div class="flash-message success"><%= messages.notice %></div>
+    <% } %>
+    <% if (messages && messages.error) { %>
+      <div class="flash-message error"><%= messages.error %></div>
+    <% } %>
+    <% if (errors && errors.errors && errors.errors.length > 0) { %>
+      <div class="flash-message error">
+        <ul>
+          <% errors.errors.forEach(function(error) { %>
+            <li><%= error.msg %></li>
+          <% }) %>
+        </ul>
+      </div>
+    <% } %>
+    <ul id="client-error" class="flash-message error" style="display:none;"></ul>
+
+  <form id="updateForm" action="/inv/update" method="post" novalidate>
+      <input type="hidden" name="inv_id" value="<%= typeof inv_id !== 'undefined' ? inv_id : '' %>">
+
+      <label for="classificationList">Classification</label>
+      <%- classificationSelect %>
+
+      <label for="inv_make">Make</label>
+      <input 
+        type="text" 
+        id="inv_make" 
+        name="inv_make" 
+        required 
+        maxlength="50"
+        value="<%= typeof inv_make !== 'undefined' ? inv_make : '' %>"
+      >
+
+      <label for="inv_model">Model</label>
+      <input 
+        type="text" 
+        id="inv_model" 
+        name="inv_model" 
+        required 
+        maxlength="50"
+        value="<%= typeof inv_model !== 'undefined' ? inv_model : '' %>"
+      >
+
+      <label for="inv_year">Year</label>
+      <input 
+        type="number" 
+        id="inv_year" 
+        name="inv_year" 
+        required 
+        min="1900" 
+        max="2099" 
+        value="<%= typeof inv_year !== 'undefined' ? inv_year : '' %>"
+      >
+
+      <label for="inv_description">Description</label>
+      <textarea 
+        id="inv_description" 
+        name="inv_description" 
+        required 
+        maxlength="1000"
+      ><%= typeof inv_description !== 'undefined' ? inv_description : '' %></textarea>
+
+      <label for="inv_image">Image Path</label>
+      <input 
+        type="text" 
+        id="inv_image" 
+        name="inv_image" 
+        required 
+        maxlength="255"
+        value="<%= typeof inv_image !== 'undefined' ? inv_image : '/images/vehicles/no-image.png' %>"
+      >
+
+      <label for="inv_thumbnail">Thumbnail Path</label>
+      <input 
+        type="text" 
+        id="inv_thumbnail" 
+        name="inv_thumbnail" 
+        required 
+        maxlength="255"
+        value="<%= typeof inv_thumbnail !== 'undefined' ? inv_thumbnail : '/images/vehicles/no-image-tn.png' %>"
+      >
+
+      <label for="inv_price">Price</label>
+      <input 
+        type="number" 
+        id="inv_price" 
+        name="inv_price" 
+        required 
+        min="0"
+        step="0.01"
+        value="<%= typeof inv_price !== 'undefined' ? inv_price : '' %>"
+      >
+
+      <label for="inv_miles">Miles</label>
+      <input 
+        type="number" 
+        id="inv_miles" 
+        name="inv_miles" 
+        required 
+        min="0"
+        step="1"
+        value="<%= typeof inv_miles !== 'undefined' ? inv_miles : '' %>"
+      >
+
+      <label for="inv_color">Color</label>
+      <input 
+        type="text" 
+        id="inv_color" 
+        name="inv_color" 
+        required 
+        maxlength="20"
+        value="<%= typeof inv_color !== 'undefined' ? inv_color : '' %>"
+      >
+ <button type="submit" disabled>Update Vehicle</button>
+
+      <!-- Hidden input for inv_id -->
+      <input type="hidden" name="inv_id"
+      <% if(locals.inv_id) { %> value="<%= locals.inv_id %>" <% } %>>
+    </form>
+  </main>
+
+<script src="/js/inv-update.js"></script>
+</body>
+</html>
