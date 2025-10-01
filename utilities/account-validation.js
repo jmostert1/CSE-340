@@ -99,4 +99,73 @@ validate.checkLoginData = async (req, res, next) => {
   next()
 }
 
+
+// Account update validation rules
+validate.updateAccountRules = () => [
+  body("account_firstname")
+    .trim()
+    .notEmpty().withMessage("First name is required."),
+  body("account_lastname")
+    .trim()
+    .notEmpty().withMessage("Last name is required."),
+  body("account_email")
+    .trim()
+    .isEmail().withMessage("A valid email is required.")
+    .custom(async (email, { req }) => {
+      const account_id = req.body.account_id
+      const existing = await accountModel.getAccountByEmail(email)
+      if (existing && existing.account_id != account_id) {
+        throw new Error("Email already exists. Please use a different email.")
+      }
+    })
+]
+
+// Password update validation rules
+validate.passwordUpdateRules = () => [
+  body("account_password")
+    .isStrongPassword({
+      minLength: 12,
+      minLowercase: 1,
+      minUppercase: 1,
+      minNumbers: 1,
+      minSymbols: 1,
+    })
+    .withMessage("Password must be at least 12 characters, include an uppercase letter, a number, and a special character.")
+]
+
+// Error handling for account update
+validate.checkUpdateData = async (req, res, next) => {
+  const errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    const account = await accountModel.getAccountById(req.body.account_id)
+    return res.render("account/update", {
+      title: "Update Account",
+      errors: errors.array(),
+      account,
+      account_firstname: req.body.account_firstname,
+      account_lastname: req.body.account_lastname,
+      account_email: req.body.account_email,
+      messages: req.flash(),
+    })
+  }
+  next()
+}
+
+// Error handling for password update
+validate.checkPasswordData = async (req, res, next) => {
+  const errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    const account = await accountModel.getAccountById(req.body.account_id)
+    const nav = await utilities.getNav()
+    return res.render("account/update", {
+      title: "Update Account",
+      nav,
+      errors: errors.array(),
+      account,
+      messages: req.flash(),
+    })
+  }
+  next()
+}
+
 module.exports = validate

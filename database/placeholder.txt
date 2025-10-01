@@ -42,3 +42,27 @@ Before Running the script change Owner to current Databse name
 Run Database rebuild
 
 push the latest commit to web service
+
+
+
+----------------------------------------
+
+
+
+
+
+
+account_firstname: Basic
+account_lastname: Client
+account_email: basic@340.edu
+account_password: I@mABas1cCl!3nt
+
+account_firstname: Happy
+account_lastname: Employee
+account_email: happy@340.edu
+account_password: I@mAnEmpl0y34
+
+account_firstname: Manager
+account_lastname: User
+account_email: manager@340.edu
+account_password: I@mAnAdm!n1strat0r

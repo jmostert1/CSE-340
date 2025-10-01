@@ -1,0 +1,132 @@
+<style>
+  .update-main {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #f8fafc;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
+  }
+  .update-main h1 {
+    color: #0d47a1;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-weight: bold;
+  }
+  .update-main form {
+    margin-bottom: 2rem;
+    background: #fff;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(25, 118, 210, 0.05);
+  }
+  .update-main label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #1976d2;
+  }
+  .update-main input[type="text"],
+  .update-main input[type="email"],
+  .update-main input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 1rem;
+    border: 1px solid #bbdefb;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  .update-main .submit-btn {
+    background: #1976d2;
+    color: #fff;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .update-main .submit-btn:hover {
+    background: #0d47a1;
+  }
+  .update-main .password-note {
+    font-size: 0.95rem;
+    color: #1565c0;
+    margin-bottom: 1rem;
+    background: #e3f2fd;
+    padding: 6px 10px;
+    border-radius: 4px;
+  }
+  .flash-message {
+    background: #e3f2fd;
+    color: #1976d2;
+    padding: 8px 16px;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+    text-align: center;
+    font-weight: bold;
+  }
+  .errors {
+    background: #ffebee;
+    color: #c62828;
+    padding: 8px 16px;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+    list-style: none;
+    text-align: left;
+  }
+  .errors li {
+    margin-bottom: 4px;
+  }
+</style>
+<main class="update-main">
+  <h1><%= title %></h1>
+  <% if (messages && messages.notice) { %>
+    <div class="flash-message"><%= messages.notice %></div>
+  <% } %>
+  <% if (errors && errors.length > 0) { %>
+    <ul class="errors">
+      <% errors.forEach(function(error) { %>
+        <li><%= error.msg %></li>
+      <% }) %>
+    </ul>
+  <% } %>
+
+  <!-- Account Update Form -->
+  <form action="/account/update" method="post" autocomplete="off">
+    <label for="account_firstname">First Name:</label>
+    <input type="text" id="account_firstname" name="account_firstname"
+      value="<%= typeof account_firstname !== 'undefined' ? account_firstname : account.account_firstname %>"
+      required pattern=".{1,}" title="First name is required">
+
+    <label for="account_lastname">Last Name:</label>
+    <input type="text" id="account_lastname" name="account_lastname"
+      value="<%= typeof account_lastname !== 'undefined' ? account_lastname : account.account_lastname %>"
+      required pattern=".{1,}" title="Last name is required">
+
+    <label for="account_email">Email Address:</label>
+    <input type="email" id="account_email" name="account_email"
+      value="<%= typeof account_email !== 'undefined' ? account_email : account.account_email %>"
+      required pattern="^[^@]+@[^@]+\.[^@]+$" title="Enter a valid email address">
+
+    <input type="hidden" name="account_id" value="<%= account.account_id %>">
+
+    <button type="submit" class="submit-btn">Update Account</button>
+  </form>
+
+  <!-- Change Password Form -->
+  <form action="/account/update-password" method="post" autocomplete="off">
+    <div class="password-note">
+      To change your password, enter a new one below.<br>
+      Password must be at least 12 characters and contain at least 1 uppercase letter, 1 number, and 1 special character.
+    </div>
+    <label for="account_password">New Password:</label>
+    <input type="password" id="account_password" name="account_password"
+      pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{12,}$"
+      title="Password must be at least 12 characters, include an uppercase letter, a number, and a special character.">
+
+    <input type="hidden" name="account_id" value="<%= account.account_id %>">
+
+    <button type="submit" class="submit-btn">Change Password</button>
+  </form>
+</main>
