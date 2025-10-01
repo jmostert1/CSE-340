@@ -1,8 +1,33 @@
+
+<style>
+  .welcome-link {
+    color: #1976d2;
+    font-weight: bold;
+    background: #e3f2fd;
+    padding: 4px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    margin-right: 8px;
+    transition: background 0.2s;
+  }
+  .welcome-link:hover {
+    background: #bbdefb;
+    color: #0d47a1;
+  }
+</style>
 <header id="top-header">
+
   <span class="siteName">
     <a href="/" title="Return to home page">CSE Motors</a>
   </span>
   <div id="tools">
-    <a title="Click to log in" href="/account/login">My Account</a>
+    <% if (locals.loggedin && locals.accountData) { %>
+      <a href="/account/" class="welcome-link" title="Go to account management">
+        Welcome <%= locals.accountData.account_firstname %>!
+      </a>
+      <a href="/account/logout" title="Click to log out">Logout</a>
+    <% } else { %>
+      <a href="/account/login" title="Click to log in">My Account</a>
+    <% } %>
   </div>
 </header>

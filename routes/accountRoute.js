@@ -33,5 +33,9 @@ router.post(
   utilities.handleErrors(accountController.accountLogin)
 )
 
+
+// Logout route
+router.get("/logout", utilities.handleErrors(accountController.logout))
+
 console.log("buildAccountManagement:", accountController.buildAccountManagement)
 module.exports = router

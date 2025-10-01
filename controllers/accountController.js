@@ -136,11 +136,24 @@ async function buildAccountManagement(req, res, next) {
   })
 }
 
+
+/**
+ * Logout controller: clears JWT cookie, resets locals, redirects to login
+ */
+function logout(req, res) {
+  res.clearCookie("jwt")
+  res.locals.loggedin = false
+  res.locals.accountData = null
+  req.flash("notice", "You have been logged out.")
+  res.redirect("/account/login")
+}
+
 module.exports = {
   buildLogin,
   buildRegister,
   registerAccount,
   accountLogin,
-  buildAccountManagement
+  buildAccountManagement,
+  logout
 }
 

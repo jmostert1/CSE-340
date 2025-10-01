@@ -227,6 +227,8 @@ function checkJWTToken(req, res, next) {
         if (err) {
           req.flash("Please log in")
           res.clearCookie("jwt")
+          res.locals.loggedin = false
+          res.locals.accountData = null
           return res.redirect("/account/login")
         }
         res.locals.accountData = accountData
@@ -235,8 +237,23 @@ function checkJWTToken(req, res, next) {
       }
     )
   } else {
+    res.locals.loggedin = false
+    res.locals.accountData = null
     next()
   }
+}
+
+function checkInventoryAccess(req, res, next) {
+  if (!res.locals.loggedin || !res.locals.accountData) {
+    req.flash('notice', 'You must be logged in to access inventory management.')
+    return res.redirect('/account/login')
+  }
+  const type = res.locals.accountData.account_type
+  if (type === 'Employee' || type === 'Admin') {
+    return next()
+  }
+  req.flash('notice', 'You do not have permission to access inventory management.')
+  return res.redirect('/account/login')
 }
 
 
@@ -252,5 +269,6 @@ module.exports = {
   inventoryRules,
   checkInventoryData,
   checkJWTToken,
-  checkLogin
+  checkLogin,
+  checkInventoryAccess
 }
