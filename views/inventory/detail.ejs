@@ -1,6 +1,83 @@
-<%- include('../partials/header') %>
+
 <main>
   <h1><%= title %></h1>
   <%- vehicleHtml %>
+  
+  <!-- Reviews Section -->
+  <%- reviewsHtml %>
+  
+  <!-- Add Review Form (only if logged in and hasn't reviewed yet) -->
+  <% if (locals.loggedin && !hasReviewed) { %>
+    <div class="add-review-section">
+      <h3>Write a Review</h3>
+      <% if (locals.messages && locals.messages.notice) { %>
+        <div class="notice"><%- locals.messages.notice %></div>
+      <% } %>
+      <% if (errors) { %>
+        <ul class="errors">
+        <% errors.array().forEach(error => { %>
+          <li><%= error.msg %></li>
+        <% }) %>
+        </ul>
+      <% } %>
+      
+      <form action="/review/add" method="post" class="review-form">
+        <input type="hidden" name="inv_id" value="<%= inv_id %>">
+        
+        <div class="form-group">
+          <label for="rating">Rating <span class="required">*</span></label>
+          <div class="star-rating-input">
+            <input type="radio" name="rating" id="star5" value="5" <%= locals.rating == 5 ? 'checked' : '' %> required>
+            <label for="star5" title="5 stars">★</label>
+            <input type="radio" name="rating" id="star4" value="4" <%= locals.rating == 4 ? 'checked' : '' %>>
+            <label for="star4" title="4 stars">★</label>
+            <input type="radio" name="rating" id="star3" value="3" <%= locals.rating == 3 ? 'checked' : '' %>>
+            <label for="star3" title="3 stars">★</label>
+            <input type="radio" name="rating" id="star2" value="2" <%= locals.rating == 2 ? 'checked' : '' %>>
+            <label for="star2" title="2 stars">★</label>
+            <input type="radio" name="rating" id="star1" value="1" <%= locals.rating == 1 ? 'checked' : '' %>>
+            <label for="star1" title="1 star">★</label>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="review_text">Your Review <span class="required">*</span></label>
+          <textarea 
+            name="review_text" 
+            id="review_text" 
+            rows="5" 
+            placeholder="Share your experience with this vehicle (10-500 characters)"
+            required
+            minlength="10"
+            maxlength="500"><%= locals.review_text || '' %></textarea>
+          <small class="char-count">Character count: <span id="charCount">0</span>/500</small>
+        </div>
+        
+        <button type="submit" class="btn-submit-review">Submit Review</button>
+      </form>
+    </div>
+  <% } else if (locals.loggedin && hasReviewed) { %>
+    <div class="already-reviewed">
+      <p>You have already reviewed this vehicle. <a href="/review/">View your reviews</a></p>
+    </div>
+  <% } else { %>
+    <div class="login-to-review">
+      <p><a href="/account/login">Log in</a> to write a review.</p>
+    </div>
+  <% } %>
 </main>
-<%- include('../partials/footer') %>
+
+<script>
+  // Character counter for review textarea
+  const textarea = document.getElementById('review_text');
+  const charCount = document.getElementById('charCount');
+  
+  if (textarea && charCount) {
+    // Set initial count
+    charCount.textContent = textarea.value.length;
+    
+    textarea.addEventListener('input', function() {
+      charCount.textContent = this.value.length;
+    });
+  }
+</script>

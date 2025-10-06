@@ -4,8 +4,9 @@ const invController = require("../controllers/invController")
 const utilities = require("../utilities/")
 const inventoryValidation = require("../utilities/inventory-validation")
 
-// PUBLIC ROUTES (no middleware)
-
+// PUBLIC ROUTES (no middleware) - These MUST come first!
+router.get("/type/:classificationId", utilities.handleErrors(invController.buildByClassificationId))
+router.get("/detail/:invId", utilities.handleErrors(invController.buildByInvId))
 router.get('/cause-error', utilities.handleErrors(invController.causeError))
 
 // ADMIN ROUTES (protected)

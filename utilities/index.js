@@ -256,7 +256,102 @@ function checkInventoryAccess(req, res, next) {
   return res.redirect('/account/login')
 }
 
+/* **************************************
+* Build star rating HTML
+* ************************************ */
+function buildStarRating(rating) {
+  let stars = ''
+  for (let i = 1; i <= 5; i++) {
+    if (i <= rating) {
+      stars += '<span class="star filled">★</span>'
+    } else {
+      stars += '<span class="star">☆</span>'
+    }
+  }
+  return stars
+}
 
+/* **************************************
+* Build reviews HTML for detail page
+* ************************************ */
+function buildReviewsHtml(reviews, ratingData, inv_id) {
+  let html = '<div class="reviews-section">'
+  
+  // Average rating display
+  const avgRating = parseFloat(ratingData.avg_rating).toFixed(1)
+  const reviewCount = ratingData.review_count
+  
+  html += '<div class="average-rating">'
+  html += '<h3>Customer Reviews</h3>'
+  if (reviewCount > 0) {
+    html += `<div class="rating-summary">`
+    html += `<div class="stars-large">${buildStarRating(Math.round(avgRating))}</div>`
+    html += `<div class="rating-text">${avgRating} out of 5 stars (${reviewCount} ${reviewCount === 1 ? 'review' : 'reviews'})</div>`
+    html += `</div>`
+  } else {
+    html += '<p class="no-reviews">No reviews yet. Be the first to review this vehicle!</p>'
+  }
+  html += '</div>'
+  
+  // Individual reviews
+  if (reviews && reviews.length > 0) {
+    html += '<div class="reviews-list">'
+    reviews.forEach(review => {
+      const reviewDate = new Date(review.review_date).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      })
+      html += `<div class="review-card">`
+      html += `<div class="review-header">`
+      html += `<div class="review-author">${review.account_firstname} ${review.account_lastname.charAt(0)}.</div>`
+      html += `<div class="review-stars">${buildStarRating(review.rating)}</div>`
+      html += `</div>`
+      html += `<div class="review-date">${reviewDate}</div>`
+      html += `<div class="review-text">${review.review_text}</div>`
+      html += `</div>`
+    })
+    html += '</div>'
+  }
+  
+  html += '</div>'
+  return html
+}
+
+/* **************************************
+* Build user's reviews HTML (for account management)
+* ************************************ */
+function buildUserReviewsHtml(reviews) {
+  let html = ''
+  
+  if (reviews && reviews.length > 0) {
+    html += '<div class="user-reviews-list">'
+    reviews.forEach(review => {
+      const reviewDate = new Date(review.review_date).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      })
+      html += `<div class="user-review-card">`
+      html += `<div class="review-vehicle-info">`
+      html += `<h4>${review.inv_year} ${review.inv_make} ${review.inv_model}</h4>`
+      html += `<div class="review-stars">${buildStarRating(review.rating)}</div>`
+      html += `</div>`
+      html += `<div class="review-date">${reviewDate}</div>`
+      html += `<div class="review-text">${review.review_text}</div>`
+      html += `<div class="review-actions">`
+      html += `<a href="/review/edit/${review.review_id}" class="btn-edit">Edit</a>`
+      html += `<a href="/review/delete/${review.review_id}" class="btn-delete" onclick="return confirm('Are you sure you want to delete this review?')">Delete</a>`
+      html += `</div>`
+      html += `</div>`
+    })
+    html += '</div>'
+  } else {
+    html += '<p class="no-reviews">You have not written any reviews yet.</p>'
+  }
+  
+  return html
+}
 
 module.exports = {
   getNav,
@@ -270,5 +365,8 @@ module.exports = {
   checkInventoryData,
   checkJWTToken,
   checkLogin,
-  checkInventoryAccess
+  checkInventoryAccess,
+  buildStarRating,
+  buildReviewsHtml,
+  buildUserReviewsHtml
 }

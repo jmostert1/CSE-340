@@ -1,4 +1,5 @@
 const invModel = require("../models/inventory-model")
+const reviewModel = require("../models/review-model")
 const utilities = require("../utilities/")
 
 const invCont = {}
@@ -20,18 +21,34 @@ invCont.buildByClassificationId = async function (req, res, next) {
 }
 
 /* Build vehicle detail view */
-async function buildDetailView(req, res, next) {
-  const inv_id = req.params.inv_id
+invCont.buildByInvId = async function (req, res, next) {
+  const inv_id = req.params.invId
   const nav = await utilities.getNav()
   const vehicle = await invModel.getVehicleById(inv_id)
   if (!vehicle) {
     return next({ status: 404, message: "Vehicle not found." })
   }
   const vehicleHtml = utilities.buildVehicleDetail(vehicle)
+  
+  // Fetch reviews and rating data
+  const reviews = await reviewModel.getReviewsByVehicle(inv_id)
+  const ratingData = await reviewModel.getAverageRating(inv_id)
+  const reviewsHtml = utilities.buildReviewsHtml(reviews, ratingData, inv_id)
+  
+  // Check if user already reviewed (if logged in)
+  let hasReviewed = false
+  if (res.locals.loggedin && res.locals.accountData) {
+    hasReviewed = await reviewModel.checkExistingReview(inv_id, res.locals.accountData.account_id)
+  }
+  
   res.render("inventory/detail", {
     title: `${vehicle.inv_make} ${vehicle.inv_model}`,
     nav,
-    vehicleHtml
+    vehicleHtml,
+    reviewsHtml,
+    hasReviewed,
+    inv_id,
+    errors: null
   })
 }
 
@@ -347,7 +364,6 @@ async function deleteInventory(req, res, next) {
 
 module.exports = {
   ...invCont,
-  buildDetailView,
   causeError,
   buildDeleteInventory,
   buildManagement,
